@@ -1,0 +1,88 @@
+{% extends 'base.html'%}
+
+{%block scripts%}
+<script>
+// jquery function
+$(document).ready(function(){
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [{%for data in qs%}'{{data.date | date:"d.m.Y"}}',{%endfor%}], //loop through queryset,
+                datasets: [
+                {
+                    label: 'Bitcoin Close',
+                    data: [{%for data in qs%}{{data.close}},{%endfor%}],
+                    backgroundColor: [
+                        'rgba(0, 192, 250, 0.1)',
+                    ],
+                    borderColor: [
+                        'rgba(29, 0, 250, 1)',
+                    ],
+                    borderWidth: 1.5
+                },
+                {
+                    label: 'MA_30',
+                    data: [{%for data in qs%}{{data.ma_30}},{%endfor%}],
+                    backgroundColor: [
+                        'rgba(0, 0, 0,0)',
+                    ],
+                    borderColor: [
+                        'rgba(149, 255, 0)',
+                    ],
+                    borderWidth: 3
+                },
+                {
+                    label: 'MA_60',
+                    data: [{%for data in qs%}{{data.ma_60}},{%endfor%}],
+                    backgroundColor: [
+                        'rgba(0,0,0,0)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 217, 0)',
+                    ],
+                    borderWidth: 3
+                },
+                {
+                    label: 'MA_200',
+                    data: [{%for data in qs%}{{data.ma_200}},{%endfor%}],
+                    backgroundColor: [
+                        'rgba(0,0,0,0)',
+                    ],
+                    borderColor: [
+                        'rgba(252, 3, 3)',
+                    ],
+                    borderWidth: 3
+                },]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+});
+    });
+</script>
+{%endblock scripts%}
+
+{%block content%}
+
+<h1>Chart:</h1>
+<!-- displaying the chart -->
+<!-- you can also play around with the width and height to increase or decrease the chart size -->
+<canvas id="myChart" width="800" height="300"></canvas>
+
+<!--<div class="container">-->
+<!--<table class="table table-dark">-->
+<!--  <td>Data</td> <td>Open</td> <td>Close</td>-->
+<!--  {%for row in qs%}-->
+<!--   <tr>-->
+<!--     <td>{{row.date | date:"d/m/Y"}}</td> <td>{{row.open}}</td> <td>{{row.close}}</td>-->
+<!--   </tr>-->
+<!--   {% endfor %}-->
+<!--</table>-->
+<!--</div>-->
+
+{%endblock content%}
