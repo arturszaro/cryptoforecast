@@ -6,13 +6,12 @@ from datetime import date
 from .tasks import ad_test, get_data, deletedata
 
 
-# Create your views here.
 def index(request):
     today = date.today()
-    dataset = 'BTC-USD'
-    datarange = f'{date(today.year - 3, today.month, today.day)}'
-    get_data(dataset, datarange)
-    ad_test(dataset, datarange)
+    datarange = f'{date(today.year - 3, today.month, today.day)}' # 3 lata wstecz
+    dataset = 'BTC-USD' # Bitcoin USD
+    get_data(dataset, datarange) # Zapisz dane w bazie danych
+    ad_test()
     item = Bitcoin.objects.all().values().order_by('date')
     df = pd.DataFrame(item)
 
@@ -20,7 +19,7 @@ def index(request):
 
     mydict = {
         'df': df.to_html(classes='table table-dark table-hover')
-    }
+    } # tablica z DataFrame na pierwszej stronie
 
     return render(request, 'index.html', context=mydict)
 
@@ -33,6 +32,7 @@ class BitcoinChartView(TemplateView):
         context = super().get_context_data(**kwargs)
         context["qs"] = Bitcoin.objects.all().filter(
             date__range=[f"{date(today.year - 2, today.month, today.day)}", f"{today}"]).order_by('date')
+        context["qs2"] = Predictions.objects.all()
         return context
 
 

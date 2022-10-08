@@ -13,3 +13,11 @@ class Bitcoin(models.Model):
 
     def __str__(self):
         return f"{self.date}"
+
+class Predictions(models.Model):
+    date = models.DateField()
+    close = models.FloatField(default=0)
+    prediction = models.FloatField()
+
+    def __str__(self):
+        return f"{self.date}"

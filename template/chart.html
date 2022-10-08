@@ -25,12 +25,12 @@ $(document).ready(function(){
                     label: 'MA_30',
                     data: [{%for data in qs%}{{data.ma_30}},{%endfor%}],
                     backgroundColor: [
-                        'rgba(0, 0, 0,0)',
+                        'rgba(0, 192, 250, 0.1)',
                     ],
                     borderColor: [
-                        'rgba(149, 255, 0)',
+                        'rgba(29, 0, 250, 1)',
                     ],
-                    borderWidth: 3
+                    borderWidth: 1.5
                 },
                 {
                     label: 'MA_60',
@@ -65,14 +65,59 @@ $(document).ready(function(){
 });
     });
 </script>
-{%endblock scripts%}
 
+<script>
+// jquery function
+$(document).ready(function(){
+        var ctx = document.getElementById('myChart2').getContext('2d');
+        var myChart2 = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [{%for data in qs2%}'{{data.date | date:"d.m.Y"}}',{%endfor%}], //loop through queryset,
+                datasets: [
+                {
+                    label: 'Predictions',
+                    data: [{%for data in qs2%}{{data.prediction}},{%endfor%}],
+                    backgroundColor: [
+                        'rgba(120, 90, 50, 0.1)',
+                    ],
+                    borderColor: [
+                        'rgba(252, 3, 3, 1)',
+                    ],
+                    borderWidth: 1.5
+                },{
+                    label: 'Bitcoin Close',
+                    data: [{%for data in qs2%}{{data.close}},{%endfor%}],
+                    backgroundColor: [
+                        'rgba(0, 192, 250, 0.1)',
+                    ],
+                    borderColor: [
+                        'rgba(29, 0, 250, 1)',
+                    ],
+                    borderWidth: 1.5
+                },
+                ]
+            },
+            options:
+                {
+        maintainAspectRatio: false,
+    }
+
+});
+    });
+</script>
+{%endblock scripts%}
 {%block content%}
 
-<h1>Chart:</h1>
+<h1>Trendy:</h1>
 <!-- displaying the chart -->
 <!-- you can also play around with the width and height to increase or decrease the chart size -->
 <canvas id="myChart" width="800" height="300"></canvas>
+<h1>Predykcje AI:</h1>
+<!-- displaying the chart -->
+<!-- you can also play around with the width and height to increase or decrease the chart size -->
+<canvas id="myChart2" width="500" height="300"></canvas>
+
 
 <!--<div class="container">-->
 <!--<table class="table table-dark">-->
