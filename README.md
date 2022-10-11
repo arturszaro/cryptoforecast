@@ -18,7 +18,7 @@ Go to /chart to see chart for data from databases. For now when you move to /cha
 
 
 #TODO:
-# Periodic tasks (Celery/redis) - Taski wykonują się same w tle nie przed każdym włączeniem strony
+# Done - Periodic tasks (Celery/redis) - Taski wykonują się same w tle nie przed każdym włączeniem strony
 # Poprawa modelu / wyników (Keras / Pandas)
 # Praca nad wizualizacją danych (chart.js && Dash?)
 # Praca nad układem oraz wyglądem strony (templates / CSS)
