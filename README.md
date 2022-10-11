@@ -18,10 +18,10 @@ Go to /chart to see chart for data from databases. For now when you move to /cha
 
 
 #TODO:
-# Done - Periodic tasks (Celery/redis) - Taski wykonują się same w tle nie przed każdym włączeniem strony
-# Poprawa modelu / wyników (Keras / Pandas)
-# Praca nad wizualizacją danych (chart.js && Dash?)
-# Praca nad układem oraz wyglądem strony (templates / CSS)
-# Nazewniztwo danych, modeli, zmiennych oraz poprawa czytelności kodu (Python, Django)
-# Dodać API do pobierania danych oraz do zmiany parametrów kalkulacji (Django Rest Framework)
-# Dodać wskaźnik z dokładnością dotychczasowych przewidywań (NumPy,Pandas)
+ Done - Periodic tasks (Celery/redis) - Taski wykonują się same w tle nie przed każdym włączeniem strony
+ Poprawa modelu / wyników (Keras / Pandas)
+ Praca nad wizualizacją danych (chart.js && Dash?)
+ Praca nad układem oraz wyglądem strony (templates / CSS)
+ Nazewniztwo danych, modeli, zmiennych oraz poprawa czytelności kodu (Python, Django)
+ Dodać API do pobierania danych oraz do zmiany parametrów kalkulacji (Django Rest Framework)
+ Dodać wskaźnik z dokładnością dotychczasowych przewidywań (NumPy,Pandas)
