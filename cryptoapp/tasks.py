@@ -12,9 +12,14 @@ import pandas as pd
 # Nazewniztwo danych, modeli, zmiennych oraz poprawa czytelności kodu (Python, Django)
 # Dodać API do pobierania danych oraz do zmiany parametrów kalkulacji (Django Rest Framework)
 # Dodać wskaźnik z dokładnością dotychczasowych przewidywań (NumPy,Pandas)
+from datetime import date
 
-@shared_task(run_every=crontab(minute=1, hour=0), bind=True)  # co 3 godziny
-def get_data(self, x, y):
+today = date.today()
+datarange = f'{date(today.year - 3, today.month, today.day)}'  # 3 lata wstecz
+
+
+@shared_task(name='get_data_task', bind=True)  # co 3 godziny
+def get_data(self, x='META', y=datarange):
     df = pdr.get_data_yahoo(x, y) #Pobieranie danych datarange oraz waluta btc uscd
     df['Date'] = df.index
     df['MA_30'] = df['Close'].rolling(30).mean()

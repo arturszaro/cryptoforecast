@@ -16,9 +16,14 @@ app = Celery('crypto')
 app.config_from_object('django.conf:settings', namespace='CELERY')
 
 app.conf.beat_schedule = {
-    'add-every-90-second': {
+    'add-every-30-minute': {
         'task': 'Prediction',
-        'schedule': crontab(minute=1, hour=0)
+        'schedule': 180.00
+    },
+'add-every-1-hour':
+{
+        'task': 'get_data_task',
+        'schedule': 360.00#crontab(minute=0, hour=3)
     },
 }
 
