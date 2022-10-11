@@ -25,3 +25,5 @@ Go to /chart to see chart for data from databases. For now when you move to /cha
 - Nazewniztwo danych, modeli, zmiennych oraz poprawa czytelności kodu (Python, Django)
 - Dodać API do pobierania danych oraz do zmiany parametrów kalkulacji (Django Rest Framework)
 - Dodać wskaźnik z dokładnością dotychczasowych przewidywań (NumPy,Pandas)
+- Wykres aktualizuje się automatycznie z każdą zmianą danych(Django_celery_results?)
+- Możliwość ustawienia wykresu z poziomu strony (lista opcji obok wykresu) (Django, HTML, JS?)
