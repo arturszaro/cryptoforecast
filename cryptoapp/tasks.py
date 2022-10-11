@@ -34,31 +34,27 @@ def get_data(self, x, y):
             b.save()
 
 
-@shared_task(bind=True)
-def deletedata(self, id, database):
-    rows = Bitcoin.objects.all().count()
-    for r in range(0, rows + id):
-        database.objects.filter(id=r).delete()
-    return 'Data deleted'
+@shared_task(bind = True)
+def deletedata(self, database):
+    database.objects.all().delete()
 
 
-@shared_task(bind=True)
+@shared_task(bind = True, name='Prediction')
 def ad_test(self):
-    deletedata(0,Predictions)
+    deletedata(Predictions)
     #Settings:
     #Ile dni wstecz do treningu
-    d_range = 365
+    d_range = 60
     #Jaki procent do treningu a jaki do testu
-    split_percentage = 0.9
+    split_percentage = 0.5
     #Ile dni wstecz do prognozy danych
-    n_input= 30
+    n_input= 7
     #ile dni wyliczyć forecast
-    x_input = 10
+    x_input = 14
     #liczba epoch
-    e_input = 100
+    e_input = 15
 
     # 1. Pobranie danych
-    print('Task działa')
     df = pd.DataFrame(data=list(zip([Bitcoin.objects.all()[i].date for i in range(Bitcoin.objects.all().count())]
                                     ,[Bitcoin.objects.all()[i].close for i in range(Bitcoin.objects.all().count())])),
                       columns=['Date','Close'])
@@ -80,12 +76,13 @@ def ad_test(self):
     scaled_train = scaler.transform(train)
     scaled_test = scaler.transform(test)
 
-    #3. Trening modelu
+
     from keras.preprocessing.sequence import TimeseriesGenerator
     n_features = 1
     generator = TimeseriesGenerator(scaled_train, scaled_train, length=n_input, batch_size=1)
     X, y = generator[0]
 
+    # 3. Trening modelu
     from keras.models import Sequential
     from keras.layers import Dense
     from keras.layers import LSTM

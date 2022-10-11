@@ -16,12 +16,12 @@ app = Celery('crypto')
 app.config_from_object('django.conf:settings', namespace='CELERY')
 
 app.conf.beat_schedule = {
-    'every-15-seconds': {
-        'task':'cryptoapp.tasks.ad_test',
-        'schedule': '15',
-        'args':('Message',),
+    'add-every-90-second': {
+        'task': 'Prediction',
+        'schedule': crontab(minute=1, hour=0)
+    },
 }
-}
+
 
 # Load task modules from all registered Django apps.
 app.autodiscover_tasks()

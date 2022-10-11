@@ -7,18 +7,18 @@ from .tasks import ad_test, get_data, deletedata
 
 
 def index(request):
+    deletedata(Bitcoin)  # usuwa wszystkie dane z bazy Bitcoin
     today = date.today()
     datarange = f'{date(today.year - 3, today.month, today.day)}' # 3 lata wstecz
-    dataset = 'BTC-USD' # Bitcoin USD
+    dataset = 'META' # Bitcoin USD
     get_data(dataset, datarange) # Zapisz dane w bazie danych
-    ad_test()
     item = Bitcoin.objects.all().values().order_by('date')
     df = pd.DataFrame(item)
 
-    # deletedata(df.id) #usuwa wszystkie dane z bazy Bitcoin
+
 
     mydict = {
-        'df': df.to_html(classes='table table-dark table-hover')
+        'df': df['Date','Open','Close','Volume'].to_html(classes='table table-dark table-hover')
     } # tablica z DataFrame na pierwszej stronie
 
     return render(request, 'index.html', context=mydict)
